@@ -10,7 +10,7 @@ import link_icon from '../assets/link.png';
 
 function SaitoPrice() {
 
-    const [filters, set_filters] = useState(['Price', '5m', '1h', '24h', 'Vol', 'Liquidity']);
+    const [filters, set_filters] = useState(['Price USD', '5m', '1h', '24h', 'Vol USD', 'Liquidity USD']);
     const [initial_pairs, set_initial_pairs] = useState([]);
     const [pairs, set_pairs] = useState([]);
     const [start, set_start] = useState(false);
@@ -46,13 +46,13 @@ function SaitoPrice() {
 
         var filter_array = initial_pairs;
 
-        if(param === "Price") {
+        if(param === "Price USD") {
             filter_array.sort((a, b) => {
                 return b.priceUsd - a.priceUsd;
             });
             set_pairs(filter_array);
             set_selected_li(param);
-        } else if(param === "Liquidity"){
+        } else if(param === "Liquidity USD"){
             filter_array.sort((a, b) => {
                 return b.liquidity.usd - a.liquidity.usd;
             });
@@ -77,7 +77,7 @@ function SaitoPrice() {
             });
             set_pairs(filter_array);
             set_selected_li(param);
-        } else if(param === "Vol"){
+        } else if(param === "Vol USD"){
             filter_array.sort((a, b) => {
                 return b.volume.h24 - a.volume.h24;
             });
@@ -94,7 +94,7 @@ function SaitoPrice() {
 
             <div className="filter_container">
                 <ul>
-                    <li>Filter by</li>
+                    <li>Sort by</li>
                     {
                         filters && filters.map((item, index) => {
                             return (
@@ -135,12 +135,12 @@ function SaitoPrice() {
                                     <div className="full_line">
                                         <li>{item.chainId === "bsc" ? <img src={bsc_icon} className="icon_chain" alt="#"/> : <img src={eth_icon} className="icon_chain" alt="#"/>}&nbsp; {item.quoteToken.symbol}</li>
                                         <li>{item.pairAddress.substring(0,6)}... <a href={item.url} target="_blank"><img src={link_icon} className="icon_link" alt="#" /></a></li>
-                                        <li>{item.priceUsd}$</li>
-                                        <li>{item.priceChange.m5 < 0 ? <span className="negativ">{item.priceChange.m5+'%'}</span> : <span className="positif">{item.priceChange.m5+'%'}</span>}</li>
-                                        <li>{item.priceChange.h1 < 0 ? <span className="negativ">{item.priceChange.h1+'%'}</span> : <span className="positif">{item.priceChange.h1+'%'}</span>}</li>
-                                        <li>{item.priceChange.h24 < 0 ? <span className="negativ">{item.priceChange.h24+'%'}</span> : <span className="positif">{item.priceChange.h24+'%'}</span>}</li>
-                                        <li>{item.volume.h24.toFixed(2)+'$'}</li>
-                                        <li>{item.liquidity.usd.toFixed(2)}$</li>
+                                        <li class="numero">{item.priceUsd.toLocaleString()}</li>
+                                        <li class="numero">{item.priceChange.m5 < 0 ? <span className="negativ">{item.priceChange.m5+'%'}</span> : <span className="positif">{item.priceChange.m5+'%'}</span>}</li>
+                                        <li class="numero">{item.priceChange.h1 < 0 ? <span className="negativ">{item.priceChange.h1+'%'}</span> : <span className="positif">{item.priceChange.h1+'%'}</span>}</li>
+                                        <li class="numero">{item.priceChange.h24 < 0 ? <span className="negativ">{item.priceChange.h24+'%'}</span> : <span className="positif">{item.priceChange.h24+'%'}</span>}</li>
+                                        <li class="numero">{item.volume.h24.toLocaleString(undefined, { minimumFractionDigits: 2,  maximumFractionDigits: 2 })}</li>
+                                        <li class="numero">{item.liquidity.usd.toLocaleString(undefined, { minimumFractionDigits: 2,  maximumFractionDigits: 2 })}</li>
                                     </div>
                                 </div>
                             );

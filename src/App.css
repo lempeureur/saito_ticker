@@ -180,6 +180,7 @@ header nav ul li a{
   font-weight: 600;
   flex: 1;
   cursor: pointer;
+  text-align: center;
 }
 
 .array_title_container li:first-child, .array_title_container li:nth-child(2){
@@ -208,6 +209,11 @@ header nav ul li a{
   word-wrap: break-word;
   color: white;
   font-size: 13px;
+}
+
+.full_line li.numero {
+  text-align: right;
+  padding-right: 2em;
 }
 
 .full_line:nth-of-type(even){
