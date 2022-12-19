@@ -40,23 +40,17 @@ function App() {
   
   const get_average = (tickers) => {
     var total_volume = 0;
+    var avg_price = 0;
     var temp = [];
     tickers && tickers.map(item => {
-      const obj = {
-        price: item.converted_last.usd,
-        total_volume: item.volume,
-        address: item.base,
-      };
+      console.log(item);
+      if(item.volume > 500) {
       total_volume = total_volume + item.volume;
-      temp.push(obj);
+      avg_price = (item.converted_last.usd * item.volume) + avg_price;
+     }
     });
 
-    var new_price = 0;
-    temp.map(item => {
-      new_price = (item.price * item.total_volume) + new_price;
-    });
-    
-    const average_result = new_price / total_volume;
+    const average_result = avg_price / total_volume;
     set_average_price(average_result);
     document.title = average_result.toFixed(4)+' - Saito Ticker - We love Saito';
   }
